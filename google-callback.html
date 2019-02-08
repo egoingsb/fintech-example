@@ -1,0 +1,22 @@
+<html>
+    <body>
+        <script>
+            var access_token = location.hash.match('access_token=(.*?)(&|$)')[1];
+        </script>
+        <input type="button" value="get calendar list" onclick="
+            fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token='+access_token)
+                .then(function(response){
+                    return response.json();
+                })
+                .then(function(data){
+                    console.log(data.items);
+                    var list = data.items.map(function(value){
+                        return '<li>'+value.summary+'</li>';
+                    })
+                    document.querySelector('ul').innerHTML = list.join('');
+                })
+        ">
+        <h1>Calendar List</h1>
+        <ul></ul>
+    </body>
+</html>
