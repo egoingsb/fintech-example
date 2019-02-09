@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <script>
+        var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+        function SyncLoginStatusUI() {
+            var isSigned = GoogleAuth.isSignedIn.get();
+            if (isSigned) {
+                document.querySelector('#loginBtn').value = 'logout';
+            } else {
+                document.querySelector('#loginBtn').value = 'login';
+            }
+        }
+        function init() {
+            console.log('init');
+            gapi.load('client:auth2', function () {
+                console.log('loaded auth2');
+                GoogleAuth = gapi.auth2.init({
+                    client_id: '228386482034-5phqabbcv9bes20608gms98qh7mp8jj9.apps.googleusercontent.com'
+                });
+                GoogleAuth.then(function () {
+                    console.log('GoogleAuth Init Success');
+                    SyncLoginStatusUI();
+                }, function () {
+                    console.log('GoogleAuth Init Fail');
+                });
+                gapi.client.init({
+                    clientId: '228386482034-5phqabbcv9bes20608gms98qh7mp8jj9.apps.googleusercontent.com',
+                    discoveryDocs: DISCOVERY_DOCS
+                })
+            });
+
+        }    
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+    <input type="button" value="checking...." id="loginBtn" onclick="
+        if(this.value === 'login'){
+            GoogleAuth.signIn({
+                scope:'profile https://www.googleapis.com/auth/calendar'
+            }).then(function(){
+                SyncLoginStatusUI();
+            });
+        } else {
+            GoogleAuth.signOut().then(function(){
+                SyncLoginStatusUI();
+            });
+        }
+    ">
+    <input type="button" value="get calendar list" onclick="
+        gapi.client.calendar.calendarList.list().then(function(response){
+            document.querySelector('#clist').innerHTML = response.result.items.map(function(calendar){
+                return '<li>'+calendar.summary+'</li>';
+            }).join('');
+        });
+    ">
+    <h1>Calendar List</h1>
+    <ul id="clist">
+
+    </ul>
+</body>
+
+</html>
