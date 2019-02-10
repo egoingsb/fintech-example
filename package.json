@@ -1,0 +1,23 @@
+{
+  "name": "oauth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "google-nodejs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egoingsb/fintech-example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/egoingsb/fintech-example/issues"
+  },
+  "homepage": "https://github.com/egoingsb/fintech-example#readme",
+  "dependencies": {
+    "form-data": "^2.3.3",
+    "node-fetch": "^2.3.0"
+  }
+}
