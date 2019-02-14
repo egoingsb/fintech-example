@@ -1,0 +1,20 @@
+<html>
+    <body>
+        <script>
+            alert(location.hash.match('access_token=(.+?)&')[1]);    
+            fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token='+location.hash.match('access_token=(.+?)&')[1])
+                    .then(function(response){
+                        return response.json();
+                    })
+                    .then(function(result){
+                        console.log(result);
+                        var tag = '';
+                        for(var i=0; i<result.items.length; i++){
+                            tag = tag + '<li>'+result.items[i].summary+'</li>';
+                        }
+                        document.querySelector('#cals').innerHTML = tag;
+                    })
+        </script>
+        <ul id="cals"></ul>
+    </body>
+</html>

@@ -7,12 +7,27 @@
     <body>
             <script>
                 function onSignIn(googleUser){
-                    alert('Login Success');
-                    var profile = googleUser.getBasicProfile();
-                    alert("ID: " + profile.getName()); 
-                    console.log(googleUser.getAuthResponse().access_token);
+                    
+
                 }    
             </script>
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <input type="button" value="get calendar list" onclick="
+                fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=ya29.GlywBll3D-B1XvLUX-OCS_ll2wALFWbHAvZwuqHUX6QdPFqxAthv9fKtQIogRXmJT8FtvFe6LmXXeQpPL0MmBS0rw7rwa91tjqaVY06l31ss89cysHEYYnYxgEO3dQ')
+                    .then(function(response){
+                        return response.json();
+                    })
+                    .then(function(result){
+                        console.log(result);
+                        var tag = '';
+                        for(var i=0; i<result.items.length; i++){
+                            tag = tag + '<li>'+result.items[i].summary+'</li>';
+                        }
+                        document.querySelector('#cals').innerHTML = tag;
+                    })
+            ">
+            <ul id="cals">
+
+            </ul>
     </body>
 </html>
