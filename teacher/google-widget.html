@@ -1,0 +1,18 @@
+<html>
+    <head>
+            <meta name="google-signin-scope" content="profile email https://www.googleapis.com/auth/calendar.readonly">
+            <meta name="google-signin-client_id" content="109658487444-sg8knhjv8cl6njrarpn52npt9mf39vs1.apps.googleusercontent.com">
+            <script src="https://apis.google.com/js/platform.js" async defer></script>
+    </head>
+    <body>
+            <script>
+                function onSignIn(googleUser){
+                    alert('Login Success');
+                    var profile = googleUser.getBasicProfile();
+                    alert("ID: " + profile.getName()); 
+                    console.log(googleUser.getAuthResponse().access_token);
+                }    
+            </script>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    </body>
+</html>
